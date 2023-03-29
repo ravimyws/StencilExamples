@@ -5,8 +5,18 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
+import { FilterModel, SelectOptions } from "./components/app-about/models";
 import { MatchResults } from "@stencil-community/router";
 export namespace Components {
+    interface AboutFilter {
+        "filter": FilterModel;
+        "subfilers": FilterModel[];
+    }
+    interface AboutSubFilter {
+        "filter": FilterModel;
+    }
+    interface AppAbout {
+    }
     interface AppHome {
     }
     interface AppProfile {
@@ -16,6 +26,24 @@ export namespace Components {
     }
 }
 declare global {
+    interface HTMLAboutFilterElement extends Components.AboutFilter, HTMLStencilElement {
+    }
+    var HTMLAboutFilterElement: {
+        prototype: HTMLAboutFilterElement;
+        new (): HTMLAboutFilterElement;
+    };
+    interface HTMLAboutSubFilterElement extends Components.AboutSubFilter, HTMLStencilElement {
+    }
+    var HTMLAboutSubFilterElement: {
+        prototype: HTMLAboutSubFilterElement;
+        new (): HTMLAboutSubFilterElement;
+    };
+    interface HTMLAppAboutElement extends Components.AppAbout, HTMLStencilElement {
+    }
+    var HTMLAppAboutElement: {
+        prototype: HTMLAppAboutElement;
+        new (): HTMLAppAboutElement;
+    };
     interface HTMLAppHomeElement extends Components.AppHome, HTMLStencilElement {
     }
     var HTMLAppHomeElement: {
@@ -35,12 +63,26 @@ declare global {
         new (): HTMLAppRootElement;
     };
     interface HTMLElementTagNameMap {
+        "about-filter": HTMLAboutFilterElement;
+        "about-sub-filter": HTMLAboutSubFilterElement;
+        "app-about": HTMLAppAboutElement;
         "app-home": HTMLAppHomeElement;
         "app-profile": HTMLAppProfileElement;
         "app-root": HTMLAppRootElement;
     }
 }
 declare namespace LocalJSX {
+    interface AboutFilter {
+        "filter"?: FilterModel;
+        "onFilterChange"?: (event: CustomEvent<SelectOptions[]>) => void;
+        "subfilers"?: FilterModel[];
+    }
+    interface AboutSubFilter {
+        "filter"?: FilterModel;
+        "onSubFilterChange"?: (event: CustomEvent<{selectedValues:SelectOptions[],index:number}>) => void;
+    }
+    interface AppAbout {
+    }
     interface AppHome {
     }
     interface AppProfile {
@@ -49,6 +91,9 @@ declare namespace LocalJSX {
     interface AppRoot {
     }
     interface IntrinsicElements {
+        "about-filter": AboutFilter;
+        "about-sub-filter": AboutSubFilter;
+        "app-about": AppAbout;
         "app-home": AppHome;
         "app-profile": AppProfile;
         "app-root": AppRoot;
@@ -58,6 +103,9 @@ export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
+            "about-filter": LocalJSX.AboutFilter & JSXBase.HTMLAttributes<HTMLAboutFilterElement>;
+            "about-sub-filter": LocalJSX.AboutSubFilter & JSXBase.HTMLAttributes<HTMLAboutSubFilterElement>;
+            "app-about": LocalJSX.AppAbout & JSXBase.HTMLAttributes<HTMLAppAboutElement>;
             "app-home": LocalJSX.AppHome & JSXBase.HTMLAttributes<HTMLAppHomeElement>;
             "app-profile": LocalJSX.AppProfile & JSXBase.HTMLAttributes<HTMLAppProfileElement>;
             "app-root": LocalJSX.AppRoot & JSXBase.HTMLAttributes<HTMLAppRootElement>;
